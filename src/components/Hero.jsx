@@ -1,5 +1,45 @@
-import Spline from '@splinetool/react-spline'
+import React, { Suspense, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import ErrorBoundary from './ErrorBoundary'
+
+const LazySpline = React.lazy(() => import('@splinetool/react-spline'))
+
+function SplineSafe({ scene, className = '' }) {
+  const [canLoad, setCanLoad] = useState(false)
+  const [checked, setChecked] = useState(false)
+
+  useEffect(() => {
+    let abort = false
+    async function check() {
+      try {
+        if (!scene) throw new Error('No scene URL provided')
+        const res = await fetch(scene, { method: 'HEAD' })
+        if (!abort) {
+          setCanLoad(res.ok)
+          setChecked(true)
+        }
+      } catch {
+        if (!abort) {
+          setCanLoad(false)
+          setChecked(true)
+        }
+      }
+    }
+    check()
+    return () => { abort = true }
+  }, [scene])
+
+  if (!checked) return <div className={`h-full w-full ${className}`} />
+  if (!canLoad) return null
+
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={null}>
+        <LazySpline scene={scene} style={{ width: '100%', height: '100%' }} />
+      </Suspense>
+    </ErrorBoundary>
+  )
+}
 
 export default function Hero() {
   return (
@@ -8,7 +48,7 @@ export default function Hero() {
       <div className="absolute inset-0">
         <div className="relative h-full w-full">
           <div className="absolute inset-y-0 right-0 w-full lg:w-1/2">
-            <Spline scene="https://prod.spline.design/VJLoxp84lCdVfdZu/scene.splinecode" style={{ width: '100%', height: '100%' }} />
+            <SplineSafe scene="https://prod.spline.design/VJLoxp84lCdVfdZu/scene.splinecode" />
           </div>
         </div>
       </div>
@@ -63,7 +103,7 @@ export default function Hero() {
             >
               <div className="absolute -inset-4 bg-gradient-to-tr from-rose-500/20 via-fuchsia-500/10 to-violet-500/20 blur-3xl rounded-full" />
               <div className="relative h-full w-full rounded-2xl border border-white/10 bg-black/40 backdrop-blur overflow-hidden">
-                <Spline scene="https://prod.spline.design/0a7s7bJ1F8NgWmqa/scene.splinecode" style={{ width: '100%', height: '100%' }} />
+                <SplineSafe scene="https://prod.spline.design/0a7s7bJ1F8NgWmqa/scene.splinecode" />
               </div>
             </motion.div>
           </div>
