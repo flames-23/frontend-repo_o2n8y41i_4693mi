@@ -4,7 +4,7 @@ import { ProblemSection, WhatIsSection, CurriculumSection, TestimonialsSection, 
 
 function App() {
   return (
-    <div className="bg-white text-gray-900">
+    <div className="bg-gray-950 text-gray-100 min-h-screen selection:bg-fuchsia-500/30 selection:text-white">
       <Navbar />
       <main>
         <Hero />
@@ -15,7 +15,7 @@ function App() {
         <LeapSection />
         <CTASection />
       </main>
-      <footer className="py-10 text-center text-sm text-gray-500">
+      <footer className="py-10 text-center text-sm text-gray-400 border-t border-white/10">
         © {new Date().getFullYear()} Activator. All rights reserved.
       </footer>
     </div>
