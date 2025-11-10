@@ -4,33 +4,38 @@ import ErrorBoundary from './ErrorBoundary'
 
 const LazySpline = React.lazy(() => import('@splinetool/react-spline'))
 
+async function probeScene(url) {
+  try {
+    const res = await fetch(url, { method: 'HEAD', mode: 'no-cors', cache: 'no-store' })
+    if (res.ok) return { allow: true }
+    if (res.type === 'opaque') return { allow: true }
+    if (res.status === 405) return { allow: true }
+    if (res.status && res.status >= 200 && res.status < 400) return { allow: true }
+    return { allow: false }
+  } catch {
+    return { allow: true }
+  }
+}
+
 function SplineSafe({ scene, className = '' }) {
-  const [canLoad, setCanLoad] = useState(false)
-  const [checked, setChecked] = useState(false)
+  const [decision, setDecision] = useState({ checked: false, allow: false })
 
   useEffect(() => {
-    let abort = false
-    async function check() {
-      try {
-        if (!scene) throw new Error('No scene URL provided')
-        const res = await fetch(scene, { method: 'HEAD' })
-        if (!abort) {
-          setCanLoad(res.ok)
-          setChecked(true)
-        }
-      } catch {
-        if (!abort) {
-          setCanLoad(false)
-          setChecked(true)
-        }
+    let active = true
+    async function run() {
+      if (!scene) {
+        if (active) setDecision({ checked: true, allow: false })
+        return
       }
+      const result = await probeScene(scene)
+      if (active) setDecision({ checked: true, allow: result.allow })
     }
-    check()
-    return () => { abort = true }
+    run()
+    return () => { active = false }
   }, [scene])
 
-  if (!checked) return <div className={`h-full w-full ${className}`} />
-  if (!canLoad) return null
+  if (!decision.checked) return <div className={`h-full w-full ${className}`} />
+  if (!decision.allow) return null
 
   return (
     <ErrorBoundary>
@@ -103,7 +108,11 @@ export default function Hero() {
             >
               <div className="absolute -inset-4 bg-gradient-to-tr from-rose-500/20 via-fuchsia-500/10 to-violet-500/20 blur-3xl rounded-full" />
               <div className="relative h-full w-full rounded-2xl border border-white/10 bg-black/40 backdrop-blur overflow-hidden">
-                <SplineSafe scene="https://prod.spline.design/0a7s7bJ1F8NgWmqa/scene.splinecode" />
+                <ErrorBoundary>
+                  <Suspense fallback={null}>
+                    <LazySpline scene="https://prod.spline.design/0a7s7bJ1F8NgWmqa/scene.splinecode" style={{ width: '100%', height: '100%' }} />
+                  </Suspense>
+                </ErrorBoundary>
               </div>
             </motion.div>
           </div>
