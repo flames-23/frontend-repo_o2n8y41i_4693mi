@@ -1,9 +1,11 @@
-import { CheckCircle2, Layers, Map, Binary, Rocket, Users, ListChecks, Sparkles, Quote } from 'lucide-react'
+import { CheckCircle2, Layers, Map, Binary, Rocket, Users, ListChecks, Sparkles, Quote, Compass } from 'lucide-react'
+import ThreeIcon from './ThreeIcon'
+import { RhythmDividers } from './Dividers'
 
 export function ProblemSection() {
   return (
     <section id="problem" className="relative py-20 bg-gray-950">
-      <div className="absolute inset-x-0 -top-10 h-40 bg-gradient-to-b from-transparent to-gray-950" />
+      <RhythmDividers />
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -12,12 +14,18 @@ export function ProblemSection() {
           </div>
           <div className="relative">
             <div className="absolute -inset-2 bg-gradient-to-r from-fuchsia-500/20 via-rose-500/10 to-orange-400/20 blur-2xl rounded-3xl" />
-            <div className="relative rounded-3xl border border-white/10 p-8 bg-black/40 backdrop-blur shadow-sm">
-              <div className="flex items-center gap-3 text-gray-200">
-                <Map className="text-amber-400" />
-                <span className="font-semibold">From maze to map</span>
+            <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="rounded-3xl border border-white/10 p-6 bg-black/40 backdrop-blur shadow-sm">
+                <div className="flex items-center gap-3 text-gray-200">
+                  <Compass className="text-amber-400" />
+                  <span className="font-semibold">Clarity over Chaos</span>
+                </div>
+                <p className="mt-3 text-sm text-gray-300">We translate complex topics into a step-by-step roadmap you can follow.</p>
               </div>
-              <p className="mt-3 text-sm text-gray-300">We turn the tangled mess of concepts into a clear, guided path.</p>
+
+              <div className="rounded-3xl border border-white/10 p-0 bg-black/40 backdrop-blur shadow-sm overflow-hidden">
+                <ThreeIcon scene="https://prod.spline.design/4A3y0HJm93cARlkn/scene.splinecode" />
+              </div>
             </div>
           </div>
         </div>
@@ -36,6 +44,7 @@ export function WhatIsSection() {
 
   return (
     <section id="what" className="py-20 bg-gradient-to-b from-gray-950 to-black">
+      <RhythmDividers />
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <div>
@@ -57,12 +66,8 @@ export function WhatIsSection() {
 
           <div className="relative">
             <div className="absolute -inset-2 bg-gradient-to-tr from-fuchsia-500/20 via-pink-500/10 to-violet-500/20 blur-2xl rounded-3xl" />
-            <div className="relative rounded-3xl border border-white/10 p-8 bg-black/40 backdrop-blur shadow-sm">
-              <div className="flex items-center gap-3 text-gray-200">
-                <Binary className="text-violet-400" />
-                <span className="font-semibold">We make concepts click</span>
-              </div>
-              <p className="mt-3 text-sm text-gray-300">Animations, visuals, and progressive practice make it stick.</p>
+            <div className="relative rounded-3xl border border-white/10 p-0 bg-black/40 backdrop-blur shadow-sm overflow-hidden">
+              <ThreeIcon scene="https://prod.spline.design/0a7s7bJ1F8NgWmqa/scene.splinecode" />
             </div>
           </div>
         </div>
@@ -83,6 +88,7 @@ export function CurriculumSection() {
 
   return (
     <section id="curriculum" className="py-20 bg-gray-950">
+      <RhythmDividers />
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-end justify-between">
           <h2 className="text-3xl font-bold text-white">From Arrays to Linked Lists: Your Curriculum.</h2>
@@ -122,6 +128,7 @@ export function TestimonialsSection() {
 
   return (
     <section id="testimonials" className="py-20 bg-gradient-to-b from-gray-950 to-black">
+      <RhythmDividers />
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-white">Hear from Activated Coders.</h2>
         <div className="mt-10 grid md:grid-cols-2 gap-6">
@@ -148,6 +155,7 @@ export function TestimonialsSection() {
 export function LeapSection() {
   return (
     <section id="leap" className="py-20 bg-gray-950">
+      <RhythmDividers />
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -157,12 +165,8 @@ export function LeapSection() {
           </div>
           <div className="relative">
             <div className="absolute -inset-2 bg-gradient-to-r from-fuchsia-500/20 via-pink-500/10 to-violet-500/20 blur-2xl rounded-3xl" />
-            <div className="relative rounded-3xl border border-white/10 p-8 bg-black/40 backdrop-blur shadow-sm">
-              <div className="flex items-center gap-3 text-gray-200">
-                <Rocket className="text-amber-400" />
-                <span className="font-semibold">Launch with confidence</span>
-              </div>
-              <p className="mt-3 text-sm text-gray-300">We prepare you for the real world with projects and mentorship.</p>
+            <div className="relative rounded-3xl border border-white/10 p-0 bg-black/40 backdrop-blur shadow-sm overflow-hidden">
+              <ThreeIcon scene="https://prod.spline.design/1xOErxCOOnrT6X3N/scene.splinecode" />
             </div>
           </div>
         </div>
